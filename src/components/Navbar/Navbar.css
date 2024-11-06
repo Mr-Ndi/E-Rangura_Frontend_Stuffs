@@ -1,0 +1,28 @@
+/* src/components/Navbar/Navbar.css */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black; /* or your desired color */
+    color: gold; /* or your desired color */
+    padding: 15px;
+}
+
+.nav-links {
+    list-style-type: none;
+    display: flex;
+}
+
+.nav-links li {
+    margin: 0 15px;
+    cursor: pointer;
+}
+
+.search-bar input {
+    padding: 5px;
+}
+
+.icons span {
+    margin-left: 20px;
+    cursor: pointer;
+}
