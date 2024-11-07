@@ -1,8 +1,45 @@
 .footer {
     background-color: black;
     color: gold;
+    padding: 20px 0;
+    text-align: center;
+}
+.footer-content {
+    display:flex;
+    align-items: center;
 }
 .quick-links ul {
     list-style-type: none;
     padding: 20px;
+}
+.quick-links ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0;
+}
+.quick-links li {
+    margin: 5px 0;
+}
+.quick-links a {
+    color: gold;
+    text-decoration: none;
+}
+
+.quick-links a:hover {
+    text-decoration: underline;
+}
+.newsletter {
+    margin-top: 20px;
+}
+
+.social-media {
+    margin-top: 20px;
+}
+
+.social-media span {
+    margin-right: 10px;
+}
+
+.footer-bottom {
+    margin-top: 20px;
 }

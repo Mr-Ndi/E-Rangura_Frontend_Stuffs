@@ -1,0 +1,20 @@
+/* CategoriesSection.css */
+.categories {
+    text-align: center;
+    padding: 40px 20px; /* Adjust padding as needed */
+}
+
+.category-list {
+    display: flex;
+    justify-content: center; /* Centers the category items */
+    flex-wrap: wrap; /* Allows wrapping of items on smaller screens */
+}
+
+.category-item {
+    margin: 10px; /* Space between categories */
+}
+
+.category-item img {
+    width: 150px; /* Set a fixed width for category images */
+    height: auto; /* Maintain aspect ratio */
+}

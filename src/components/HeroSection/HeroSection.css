@@ -1,0 +1,28 @@
+/* HeroSection.css */
+.hero {
+    background-image: url('path/to/hero-image.jpg'); /* Replace with your image path */
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-align: center;
+    padding: 100px 20px; /* Adjust padding as needed */
+}
+
+.hero h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.hero p {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.hero-button {
+    background-color: gold; /* Button color */
+    color: black; /* Text color */
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+}

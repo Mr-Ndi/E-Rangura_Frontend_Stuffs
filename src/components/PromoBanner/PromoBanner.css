@@ -1,0 +1,20 @@
+/* PromoBanner.css */
+.promo-banner {
+    background-color: #ffcc00; /* Bright background for visibility */
+    color: black;
+    text-align: center;
+    padding: 20px;
+}
+
+.promo-banner h2 {
+    margin: 0;
+}
+
+.promo-button {
+    background-color: black; /* Button color */
+    color: gold; /* Text color */
+    border: none;
+    padding: 10px 15px;
+    font-size: 1rem;
+    cursor: pointer;
+}
