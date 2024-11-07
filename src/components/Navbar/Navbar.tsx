@@ -5,7 +5,7 @@ import './Navbar.css';
 const Navbar: React.FC = () => {
     return (
         <nav className="navbar">
-            <div className="logo">MyShop</div>
+            <div className="logo">E-Rangura</div>
             <ul className="nav-links">
                 <li>Home</li>
                 <li>Shop</li>

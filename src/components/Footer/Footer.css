@@ -1,0 +1,8 @@
+.footer {
+    background-color: black;
+    color: gold;
+}
+.quick-links ul {
+    list-style-type: none;
+    padding: 20px;
+}
