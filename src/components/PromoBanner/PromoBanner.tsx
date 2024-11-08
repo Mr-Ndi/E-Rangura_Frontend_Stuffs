@@ -1,4 +1,3 @@
-// PromoBanner.tsx
 import React from 'react';
 import './PromoBanner.css';
 

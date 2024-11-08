@@ -1,12 +1,11 @@
-/* TestimonialsSection.css */
 .testimonials {
-    background-color: #f9f9f9; /* Light background for contrast */
+    background-color: #f9f9f9;
     text-align: center;
-    padding: 40px 20px; /* Adjust padding as needed */
+    padding: 40px 20px;
 }
 
 blockquote {
-   border-left: 5px solid gold; /* Decorative left border for quotes */
+   border-left: 5px solid gold;
    margin-bottom: 20px; 
    padding-left: 15px; 
    font-style: italic; 

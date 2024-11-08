@@ -26,3 +26,7 @@
     margin-left: 20px;
     cursor: pointer;
 }
+.nav-bar-logo {
+    height: 70px;
+    width: auto;
+}

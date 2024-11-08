@@ -1,23 +1,22 @@
-/* FeaturedProducts.css */
 .featured-products {
     text-align: center;
-    padding: 40px 20px; /* Adjust padding as needed */
+    padding: 40px 20px;
 }
 
 .product-list {
     display: flex;
-    justify-content: center; /* Centers the product items */
-    flex-wrap: wrap; /* Allows wrapping of items on smaller screens */
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .product-item {
-    border: 1px solid #ccc; /* Light border around products */
-    border-radius: 5px; /* Rounded corners */
-    margin: 10px; /* Space between products */
-    padding: 10px; /* Inner padding for product items */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
 }
 
 .product-item img {
-    width: 100%; /* Responsive image size */
-    height: auto; /* Maintain aspect ratio */
+    width: 100%;
+    height: auto;
 }

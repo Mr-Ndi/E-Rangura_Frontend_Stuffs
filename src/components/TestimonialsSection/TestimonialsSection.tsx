@@ -1,4 +1,3 @@
-// TestimonialsSection.tsx
 import React from 'react';
 import './TestimonialsSection.css';
 
@@ -6,7 +5,6 @@ const TestimonialsSection: React.FC = () => {
     const testimonials = [
         { id: 1, text: "Great products! Highly recommend.", name: "Alice" },
         { id: 2, text: "Excellent customer service!", name: "Bob" },
-        // Add more testimonials as needed
     ];
 
     return (

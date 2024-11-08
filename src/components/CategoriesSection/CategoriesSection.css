@@ -1,20 +1,19 @@
-/* CategoriesSection.css */
 .categories {
     text-align: center;
-    padding: 40px 20px; /* Adjust padding as needed */
+    padding: 40px 20px;
 }
 
 .category-list {
     display: flex;
-    justify-content: center; /* Centers the category items */
-    flex-wrap: wrap; /* Allows wrapping of items on smaller screens */
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .category-item {
-    margin: 10px; /* Space between categories */
+    margin: 10px;
 }
 
 .category-item img {
-    width: 150px; /* Set a fixed width for category images */
-    height: auto; /* Maintain aspect ratio */
+    width: 150px;
+    height: auto;
 }

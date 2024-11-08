@@ -1,6 +1,5 @@
-/* PromoBanner.css */
 .promo-banner {
-    background-color: #ffcc00; /* Bright background for visibility */
+    background-color: #ffcc00;
     color: black;
     text-align: center;
     padding: 20px;
@@ -11,8 +10,8 @@
 }
 
 .promo-button {
-    background-color: black; /* Button color */
-    color: gold; /* Text color */
+    background-color: black;
+    color: gold;
     border: none;
     padding: 10px 15px;
     font-size: 1rem;

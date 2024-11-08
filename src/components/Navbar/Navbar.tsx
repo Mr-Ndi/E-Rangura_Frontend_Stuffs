@@ -1,11 +1,11 @@
-// src/components/Navbar/Navbar.tsx
 import React from 'react';
 import './Navbar.css';
+import logo from '../../assets/logo.png'
 
 const Navbar: React.FC = () => {
     return (
         <nav className="navbar">
-            <div className="logo">E-Rangura</div>
+            <div className="logo"><img src={logo} alt="E-Rangura Logo" className='nav-bar-logo' /></div>
             <ul className="nav-links">
                 <li>Home</li>
                 <li>Shop</li>

@@ -1,15 +1,13 @@
-/* App.css or Global Styles */
-
 body {
-    font-family: Arial, sans-serif; /* Use a clean, readable font */
-    line-height: 1.6; /* Improve readability with line height */
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
     margin: 0;
  }
  
  h2, h3, h4 {
-    color: black; /* Set a consistent heading color across components */
+    color: black;
  }
  
- /* Add any additional global styles here */
+
  
  

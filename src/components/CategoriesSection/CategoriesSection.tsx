@@ -1,4 +1,3 @@
-// CategoriesSection.tsx
 import React from 'react';
 import './CategoriesSection.css';
 
@@ -6,7 +5,7 @@ const CategoriesSection: React.FC = () => {
     const categories = [
         { name: "Clothing", imageUrl: "path/to/clothing.jpg" },
         { name: "Accessories", imageUrl: "path/to/accessories.jpg" },
-        // Add more categories as needed
+    
     ];
 
     return (
