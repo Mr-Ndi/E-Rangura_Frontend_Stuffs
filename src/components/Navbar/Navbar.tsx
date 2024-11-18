@@ -1,5 +1,6 @@
 import React from 'react';
 import './Navbar.css';
+import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.png'
 
 const Navbar: React.FC = () => {
@@ -7,12 +8,12 @@ const Navbar: React.FC = () => {
         <nav className="navbar">
             <div className="logo"><img src={logo} alt="E-Rangura Logo" className='nav-bar-logo' /></div>
             <ul className="nav-links">
-                <li>Home</li>
-                <li>Available</li>
-                <li>Gallery</li>
-                <li>Shop</li>
-                <li>About Us</li>
-                <li>Contact</li>
+            <li><Link to="/">Home</Link></li>
+                <li><Link to="/available">Available</Link></li>
+                <li><Link to="/gallery">Gallery</Link></li>
+                <li><Link to="/shop">Shop</Link></li>
+                <li><Link to="/about">About Us</Link></li>
+                <li><Link to="/contact">Contact</Link></li>
             </ul>
             <div className="search-bar">
                 <input type="text" placeholder="Search products..." />
