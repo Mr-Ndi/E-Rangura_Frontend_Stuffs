@@ -8,6 +8,8 @@ const Navbar: React.FC = () => {
             <div className="logo"><img src={logo} alt="E-Rangura Logo" className='nav-bar-logo' /></div>
             <ul className="nav-links">
                 <li>Home</li>
+                <li>Available</li>
+                <li>Gallery</li>
                 <li>Shop</li>
                 <li>About Us</li>
                 <li>Contact</li>

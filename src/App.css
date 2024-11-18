@@ -2,12 +2,18 @@ body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
     margin: 0;
+    height: 100%;
  }
  
  h2, h3, h4 {
     color: black;
  }
- 
+ .App {
+   display: flex;
+   flex-direction: column;
+   min-height: 100vh;
+}
+
 
  
  

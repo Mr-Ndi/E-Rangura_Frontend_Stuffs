@@ -12,10 +12,10 @@ function App() {
         <div className="App">
             <Navbar />
             <HeroSection />
-            <PromoBanner />
+            {/* <PromoBanner />
             <CategoriesSection />
             <FeaturedProducts />
-            <TestimonialsSection />
+            <TestimonialsSection /> */}
             <Footer />
         </div>
     );
