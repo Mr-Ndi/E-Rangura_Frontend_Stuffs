@@ -6,6 +6,7 @@ import HeroSection from './components/HeroSection/HeroSection'
 import GallerySection from './components/GallerySection/Gallerysection';
 import AvailableSection from './components/AvailableSection/AvailableSection';
 import Booking from './components/BookingSection/BookingSection';
+import Contact from './components/ContactSection/ContactSection';
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                     <Route path="/gallery" element={<GallerySection />} />
                     <Route path="/available" element={<AvailableSection />} />
                     <Route path='/shop' element={<Booking />} />
+                    <Route path='/contact' element={<Contact />} />
                 </Routes>
                 <Footer />
             </div>
