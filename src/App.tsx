@@ -7,6 +7,7 @@ import GallerySection from './components/GallerySection/Gallerysection';
 import AvailableSection from './components/AvailableSection/AvailableSection';
 import Booking from './components/BookingSection/BookingSection';
 import Contact from './components/ContactSection/ContactSection';
+import About from './components/AboutSection/AboutSection';
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
                     <Route path="/available" element={<AvailableSection />} />
                     <Route path='/shop' element={<Booking />} />
                     <Route path='/contact' element={<Contact />} />
+                    <Route path='/about' element={< About/>} />
                 </Routes>
                 <Footer />
             </div>
