@@ -36,7 +36,7 @@ const AvailableProducts: React.FC = () => {
       <div className="av-box">
         {/* List of product cards */}
         <ProductCard 
-          image="suga.jfif" 
+          image="suga.jpg" 
           alt="Sugar" 
           title="Sugar" 
           description="Pure, refined for sweetening and baking."
