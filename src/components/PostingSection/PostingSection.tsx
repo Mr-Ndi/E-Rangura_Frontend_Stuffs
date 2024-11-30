@@ -11,13 +11,11 @@ const PostingSection = () => {
 
   // Define the initial state with explicit types
   const [formData, setFormData] = React.useState<{
-    name: string;
     description: string;
     price: string;
     stock_quantity: string;
     product: string;
   }>({
-    name: '',
     description: '',
     price: '',
     stock_quantity: '',
@@ -34,24 +32,26 @@ const PostingSection = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    const data = new FormData(); // Create a new FormData object to send the form data
-    data.append('name', formData.name);
-    data.append('description', formData.description);
-    data.append('price', formData.price);
-    data.append('stock_quantity', formData.stock_quantity);
+  
+    const payload = {
+      name: formData.product,
+      description: formData.description,
+      price: formData.price,
+      stock_quantity: formData.stock_quantity,
+    };
 
     try {
-      // Make the POST request to the backend
       const response = await fetch('http://127.0.0.1:8000/api/store/upload/', {
         method: 'POST',
-        body: data,
+        headers: {
+          'Content-Type': 'application/json', // Tell the server to expect JSON data
+        },
+        body: JSON.stringify(payload), // Send the data as a JSON string
       });
-
-      // Handle the response from the backend
+  
       const result = await response.json();
       console.log('Server Response:', result);
-
+  
       if (response.ok) {
         alert('Product created successfully!');
       } else {
@@ -61,41 +61,37 @@ const PostingSection = () => {
       console.error('Error:', error);
       alert('An error occurred while submitting the form');
     }
-  };
+  };  
 
   return (
     <div className="posting-section" id="Order">
       <h1>
-        Order <span>Now</span>
+        Post <span>Now</span>
       </h1>
       <div className="posting-main">
         <form onSubmit={handleSubmit}>
           <div className="input">
-            <label htmlFor="name">Product Name</label>
-            <input type="text" id="name" placeholder="Product Name" value={formData.name} onChange={handleChange} required />
-          </div>
-          <div className="input">
-            <label htmlFor="description">Description</label>
-            <textarea id="description" placeholder="Product Description" value={formData.description} onChange={handleChange} required />
-          </div>
-          <div className="input">
-            <label htmlFor="price">Price</label>
-            <input type="number" id="price" placeholder="Price" value={formData.price} onChange={handleChange} required />
-          </div>
-          <div className="input">
-            <label htmlFor="stock_quantity">Stock Quantity</label>
-            <input type="number" id="stock_quantity" placeholder="Stock Quantity" value={formData.stock_quantity} onChange={handleChange} required />
-          </div>
-          <div className="input">
-            <label htmlFor="product">Product Category</label>
+            <label htmlFor="product">Product Name</label>
             <select id="product" value={formData.product} onChange={handleChange} required>
-              <option value="">Select a Product Category</option>
+              <option value="">Select a Product from the following Category</option>
               {productOptions.map((product) => (
                 <option key={product.value} value={product.value}>
                   {product.label}
                 </option>
               ))}
             </select>
+          </div>
+          <div className="input">
+            <label htmlFor="price">Price per unity</label>
+            <input type="number" id="price" placeholder="Rwf" value={formData.price} onChange={handleChange} required />
+          </div>
+          <div className="input">
+            <label htmlFor="stock_quantity">What is Your Stock Quantity</label>
+            <input type="number" id="stock_quantity" placeholder="Kgs" value={formData.stock_quantity} onChange={handleChange} required />
+          </div>
+          <div className="input">
+            <label htmlFor="description">Description</label>
+            <textarea id="description" placeholder="Product Description like its source, its brand etc." cols={67} rows={5} value={formData.description} onChange={handleChange} required />
           </div>
           <button type="submit" className="posting-btn">
             Create Product

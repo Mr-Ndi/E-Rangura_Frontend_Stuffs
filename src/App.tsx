@@ -8,6 +8,7 @@ import AvailableSection from './components/AvailableSection/AvailableSection';
 import Booking from './components/BookingSection/BookingSection';
 import Contact from './components/ContactSection/ContactSection';
 import About from './components/AboutSection/AboutSection';
+import Posting from './components/PostingSection/PostingSection';
 
 function App() {
     return (
@@ -21,6 +22,7 @@ function App() {
                     <Route path='/shop' element={<Booking />} />
                     <Route path='/contact' element={<Contact />} />
                     <Route path='/about' element={< About/>} />
+                    <Route path='/upload' element={< Posting/>} />
                 </Routes>
                 <Footer />
             </div>
