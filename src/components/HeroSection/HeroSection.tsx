@@ -11,6 +11,9 @@ const HeroSection: React.FC = () => {
                 <Link to="/shop">
                     <button className="hero-button">Shop Now</button>
                 </Link>
+                <Link to="/upload">
+                    <button className="order-button">Post Now</button>
+                </Link>
             </div>
             <div>
                 <img src="/flexin.jpg" alt="Highlight" />

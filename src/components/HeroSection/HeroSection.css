@@ -28,6 +28,21 @@
     padding: 10px 20px;
     border: none;
     cursor: pointer;
+    margin-left: 5%;
+    margin-top: 5%;
+}
+
+.hero-button:hover {
+    background-color: #0056b3;
+}
+.order-button {
+    margin-left: 5%;
+    margin-top: 5%;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
 }
 
 .hero-button:hover {

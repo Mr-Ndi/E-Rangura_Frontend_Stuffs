@@ -3,10 +3,10 @@ import './BookingSection.css';
 
 const Booking = () => {
   const productOptions = [
-    { label: 'Product A', value: 'product-a' },
-    { label: 'Product B', value: 'product-b' },
-    { label: 'Product C', value: 'product-c' },
-    { label: 'Product D', value: 'product-d' }
+    { label: 'Maize-Frour', value: 'kuwunga' },
+    { label: 'Oil', value: 'oil' },
+    { label: 'Soap', value: 'soap' },
+    { label: 'Rice', value: 'rice' }
   ];
 
   const [formData, setFormData] = React.useState({
@@ -61,7 +61,7 @@ const Booking = () => {
             </select>
       </div>
             <div className="input">
-              <label htmlFor="number">Number</label>
+              <label htmlFor="number">How much</label>
               <input type="tel" id="number" placeholder="Your Number" value={formData.number} onChange={handleChange} required />
             </div>
             <div className="input">
