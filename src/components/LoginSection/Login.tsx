@@ -13,7 +13,7 @@ const Login: React.FC = () => {
     <div className="login-container">
         <div className="descipt">
         <h2>Login</h2>
-        <p>Hey just sign up in order to upload the product</p>
+        <p>Hey just Login in order to upload the product</p>
         </div>
         <div className="content">
             <form onSubmit={handleSubmit}>
@@ -26,7 +26,7 @@ const Login: React.FC = () => {
                     <input type="password" id="password" required />
                 </div>
                 <button type="submit" className='button'>Login</button>
-                <Link to='/signup'>
+                <Link to='/create-account'>
                 <p className="description">Don't have an account? Sign up to get started!</p>
                 </Link>
             </form>

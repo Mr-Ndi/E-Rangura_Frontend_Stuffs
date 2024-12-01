@@ -1,21 +1,46 @@
-// CreateAccount.js
 import React from 'react';
 import './AccountCreation.css';
+import { Link } from 'react-router-dom';
 
-const CreateAccount: React.FC = () => {
+const Login: React.FC = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Handle account creation logic here
-    alert('Account creation functionality not implemented yet.');
+    // Handle login logic here
+    alert('Login functionality not implemented yet.');
   };
 
   return (
-    <div className="create-account-container">
-      <h2>Signup</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-      <button>Signup</button>
+    <div className="login-container">
+        <div className="descipt">
+        <h2>Sign up</h2>
+        <p>Hey just sign up in order to upload the product</p>
+        </div>
+        <div className="content">
+            <form onSubmit={handleSubmit}>
+                <div className="form-group">
+                    <label htmlFor="username">Username</label>
+                    <input type="text" id="username" required />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="password">Telephone</label>
+                    <input type="password" id="password" required />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="password">Password</label>
+                    <input type="password" id="password" required />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="password">Confirm Password</label>
+                    <input type="password" id="password" required />
+                </div>
+                <button type="submit" className='button'>Login</button>
+                <Link to='/login'>
+                <p className="description">Already have an account? Sign in to get started!</p>
+                </Link>
+            </form>
+        </div>
     </div>
   );
 };
 
-export default CreateAccount;
+export default Login;
