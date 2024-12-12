@@ -11,10 +11,6 @@ const Login: React.FC = () => {
 
   return (
     <div className="login-container">
-        <div className="descipt">
-        <h2>Sign up</h2>
-        <p>Hey just sign up in order to upload the product</p>
-        </div>
         <div className="content">
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
@@ -38,6 +34,10 @@ const Login: React.FC = () => {
                 <p className="description">Already have an account? Sign in to get started!</p>
                 </Link>
             </form>
+        </div>
+        <div className="signup-descipt">
+        <h2>Sign up</h2>
+        <p>Hey just sign up in order to upload the product</p>
         </div>
     </div>
   );

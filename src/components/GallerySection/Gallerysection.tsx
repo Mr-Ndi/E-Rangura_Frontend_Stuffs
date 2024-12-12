@@ -13,32 +13,32 @@ const GallerySection: React.FC = () => {
         </div>
         <div className="img">
           <a href="/project/2.jpg">
-            <img src="2.jpg" alt="Product 2" />
+            <img src="Duru.jpg" alt="Product 2" />
           </a>
         </div>
         <div className="img">
           <a href="/project/3.jpg">
-            <img src="3.jpg" alt="Product 3" />
+            <img src="ph.jpg" alt="Product 3" />
           </a>
         </div>
         <div className="img">
           <a href="/project/4.jpg">
-            <img src="4.jpg" alt="Product 4" />
+            <img src="Grice.jpg" alt="Product 4" />
           </a>
         </div>
         <div className="img">
           <a href="/project/5.jpg">
-            <img src="5.jpg" alt="Product 5" />
+            <img src="Salsa.jpg" alt="Product 5" />
           </a>
         </div>
         <div className="img">
           <a href="/project/6.jpg">
-            <img src="6.jpg" alt="Product 6" />
+            <img src="spaghetti.jpeg" alt="Product 6" />
           </a>
         </div>
         <div className="img">
           <a href="/project/7.jfif">
-            <img src="7.jfif" alt="Product 7" />
+            <img src="Azam.jpg" alt="Product 7" />
           </a>
         </div>
         <div className="img">
@@ -48,12 +48,12 @@ const GallerySection: React.FC = () => {
         </div>
         <div className="img">
           <a href="/project/9.jpg">
-            <img src="9.jpg" alt="Product 9" />
+            <img src="Sunflower.jpeg" alt="Product 9" />
           </a>
         </div>
         <div className="img">
           <a href="/project/10.jfif">
-            <img src="10.jfif" alt="Product 10" />
+            <img src="Ciment.jpeg" alt="Product 10" />
           </a>
         </div>
       </div>

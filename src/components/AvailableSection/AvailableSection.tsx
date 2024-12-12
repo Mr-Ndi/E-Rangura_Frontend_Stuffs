@@ -1,99 +1,70 @@
-import React from 'react';
-import './AvailableSection.css'
+import React, { useEffect, useState } from 'react';
 
-const ProductCard: React.FC<{
-  image: string;
-  alt: string;
-  title: string;
+interface Product {
+  id: number;
+  name: string;
   description: string;
   price: string;
-}> = ({ image, alt, title, description, price }) => {
+  stock_quantity: number;
+}
+
+const AvailableSection: React.FC = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+
+const fetchProducts = async () => {
+  try {
+    const response = await fetch('https://sokoni-6ocg.onrender.com/api/store/products/');
+    
+    
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    const data = await response.json();
+
+    
+    if (data.message && data.status === '0') {
+      setError(data.message); 
+      setProducts([]); 
+      return; 
+    }
+
+    
+    setProducts(data);
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      setError(error.message); 
+    } else {
+      setError('An unknown error occurred'); 
+    }
+  } finally {
+    setLoading(false);
+  }
+};
+
+
+  
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+
   return (
-    <div className="av-card">
-      <div className="av_image">
-        <img src={image} alt={alt} />
-      </div>
-      <div className="av_info">
-        <h2>{title}</h2>
-        <p>{description}</p>
-        <h3>{price}</h3>
-        <div className="av_icon">
-          <i className="fa-solid fa-star"></i>
-          <i className="fa-solid fa-star"></i>
-          <i className="fa-solid fa-star"></i>
-          <i className="fa-solid fa-star-half-stroke"></i>
-        </div>
-        <a href="#" className="av-btn">Add to cart</a>
+    <div>
+      <h2>Available Products</h2>
+      <div className="product-list">
+        {products.map((product) => (
+          <div key={product.id} className="product-item">
+            <h3>{product.name}</h3>
+            <p>{product.description}</p>
+            <p>Price: ${product.price}</p>
+            <p>Stock Quantity: {product.stock_quantity}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
 };
 
-const AvailableProducts: React.FC = () => {
-  return (
-    <section className="available" id="Available">
-      <h1>Today's <span>Available</span></h1>
-      <div className="av-box">
-        {/* List of product cards */}
-        <ProductCard 
-          image="suga.jpg" 
-          alt="Sugar" 
-          title="Sugar" 
-          description="Pure, refined for sweetening and baking."
-          price="$2.00" 
-        />
-        <ProductCard 
-          image="tomato  paste.jpg" 
-          alt="Tomato Paste" 
-          title="Tomato Paste" 
-          description="Rich, adds depth to dishes."
-          price="$2.00" 
-        />
-        <ProductCard 
-          image="rice.jpg" 
-          alt="Rice" 
-          title="Rice" 
-          description="High-quality, versatile rice."
-          price="$27.00" 
-        />
-        <ProductCard 
-          image="salt.jpg" 
-          alt="Salt" 
-          title="Salt" 
-          description="Fine-grain for flavor enhancement"
-          price="$2.00" 
-        />
-        <ProductCard 
-          image="oil.jpg" 
-          alt="Oil" 
-          title="Oil" 
-          description="Pure, healthy cooking oil"
-          price="$17.00" 
-        />
-        <ProductCard 
-          image="soap.jpg" 
-          alt="Soap" 
-          title="Soap" 
-          description="Quality, everyday freshness."
-          price="$5.00" 
-        />
-        <ProductCard 
-          image="ph.jpg" 
-          alt="Clean Ripple" 
-          title="Clean Ripple" 
-          description="Gentle, effective skin care soap."
-          price="$10.00" 
-        />
-        <ProductCard 
-          image="kawunga2.jpg" 
-          alt="Maize Flour" 
-          title="Maize Flour" 
-          description="Fresh, hearty meals"
-          price="$37.00" 
-        />
-      </div>
-    </section>
-  );
-};
-
-export default AvailableProducts;
+export default AvailableSection;
