@@ -1,6 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './AvailableSection.css';
+import Maize_flour from '../../assets/Maize-flour.jpg';
+import Rice from '../../assets/rice.jpg';
+import Sunflower from '../../assets/Sunflower.jpg'
+import Barsoap from '../../assets/Barsoap.jpg'
+
+const imageMapping: { [key: string]: string } = {
+  'Maize-flow': Maize_flour,
+  'Rice': Rice,
+  'oil': Sunflower,
+  'soap': Barsoap
+};
 
 interface Product {
   id: number;
@@ -42,7 +53,7 @@ const AvailableSection: React.FC = () => {
         {products.map((product) => (
           <div key={product.id} className="av-card">
             <div className="av_image">
-              <img src={`product.name.jpg`} alt={product.name} />
+              <img src={imageMapping[product.name] || 'default-image.jpg'} alt={product.name} />
             </div>
             <div className="av_info">
               <h3>{product.name}</h3>
