@@ -18,6 +18,12 @@
     cursor: pointer;
 }
 
+/* Remove underline from links */
+.nav-links li a {
+    text-decoration: none; /* Remove underline */
+    color: gold; /* Ensure link color matches navbar text color */
+}
+
 .search-bar input {
     padding: 5px;
 }
@@ -26,6 +32,7 @@
     margin-left: 20px;
     cursor: pointer;
 }
+
 .nav-bar-logo {
     height: 70px;
     width: auto;
