@@ -11,16 +11,19 @@ import About from './components/AboutSection/AboutSection';
 import Posting from './components/PostingSection/PostingSection';
 import Login from './components/LoginSection/Login';
 import CreateAccount from './components/AccountCreation/AccountCreation';
+import React, { useState } from 'react';
 
 function App() {
+    const [searchQuery, setSearchQuery] = useState<string>(''); 
+
     return (
         <Router>
             <div className="App">
-                <Navbar />
+                <Navbar setSearchQuery={setSearchQuery} />
                 <Routes>
                     <Route path="/" element={<HeroSection />} />
                     <Route path="/gallery" element={<GallerySection />} />
-                    <Route path="/available" element={<AvailableSection />} />
+                    <Route path="/available" element={<AvailableSection searchQuery={searchQuery} />} /> {/* Pass down searchQuery */}
                     <Route path="/shop" element={<Booking />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/about" element={<About />} />

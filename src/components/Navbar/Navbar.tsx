@@ -3,7 +3,11 @@ import './Navbar.css';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.png';
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+    setSearchQuery: (query: string) => void;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ setSearchQuery }) => {
     return (
         <nav className="navbar">
             <div className="logo">
@@ -21,7 +25,11 @@ const Navbar: React.FC = () => {
                 <li><Link to="/contact">Contact</Link></li>
             </ul>
             <div className="search-bar">
-                <input type="text" placeholder="Search products..." />
+                <input
+                    type="text"
+                    placeholder="Search products..."
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                />
             </div>
             <div className="icons">
                 <Link to="/">

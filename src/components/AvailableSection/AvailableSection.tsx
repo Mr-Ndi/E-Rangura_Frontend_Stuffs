@@ -22,7 +22,11 @@ interface Product {
   stock_quantity: number;
 }
 
-const AvailableSection: React.FC = () => {
+interface AvailableSectionProps {
+  searchQuery: string;
+}
+
+const AvailableSection: React.FC<AvailableSectionProps> = ({ searchQuery }) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -78,11 +82,15 @@ const AvailableSection: React.FC = () => {
     );
   }
 
+  const filteredProducts = products.filter(product =>
+    product.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="available">
       <h2>Available Products</h2>
       <div className="av-box">
-        {products.map((product) => (
+        {filteredProducts.map((product) => (
           <div key={product.id} className="av-card">
             <div className="av_image">
               <img src={imageMapping[product.name] || 'default-image.jpg'} alt={product.name} />
