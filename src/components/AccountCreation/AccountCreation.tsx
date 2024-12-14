@@ -29,7 +29,7 @@ const Login: React.FC = () => {
                     <label htmlFor="password">Confirm Password</label>
                     <input type="password" id="password" required />
                 </div>
-                <button type="submit" className='button'>Login</button>
+                <button type="submit" className='button'>Create an Account</button>
                 <Link to='/login'>
                 <p className="description">Already have an account? Sign in to get started!</p>
                 </Link>

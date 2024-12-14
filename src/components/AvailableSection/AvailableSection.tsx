@@ -3,7 +3,7 @@ import axios from 'axios';
 import './AvailableSection.css';
 import Minimex from '../../assets/Minimex.jpg';
 import Rice from '../../assets/rice.jpg';
-import ProgressBar from './ProgressBar/ProgressBar';
+import ProgressBar from '../ProgressBar/ProgressBar';
 import Sunflower from '../../assets/Sunflower.jpg';
 import Barsoap from '../../assets/Barsoap.jpg';
 
@@ -27,11 +27,13 @@ const AvailableSection: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [progress, setProgress] = useState<number>(0);
-  const [isComplete, setIsComplete] = useState(false);
+  const [isComplete, setIsComplete] = useState<boolean>(false);
+  const [loadingMessage, setLoadingMessage] = useState<string>('Fetching products...');
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
+        setLoadingMessage('Fetching products...');
         const response = await axios.get('http://127.0.0.1:8000/api/store/products/');
         setProducts(response.data);
         console.log(response.data);
@@ -39,7 +41,7 @@ const AvailableSection: React.FC = () => {
         console.error(error);
         setError('Failed to fetch products.');
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
     };
 
@@ -47,28 +49,26 @@ const AvailableSection: React.FC = () => {
       setProgress((oldProgress) => {
         if (oldProgress >= 100) {
           clearInterval(interval);
-          setIsComplete(true)
+          setIsComplete(true);
           return oldProgress; 
         }
         return Math.min(oldProgress + Math.random() * 20, 100); 
       });
     }, 500); 
 
-    fetchProducts()
+    fetchProducts();
 
     return () => clearInterval(interval); 
   }, []);
 
-
   if (loading || !isComplete) {
     return (
       <div>
-        <ProgressBar progress={progress} />
-        {isComplete && <div>Kuvoma ibihari birarangiye!</div>}
+        <ProgressBar progress={progress} message={loadingMessage} />
+        {isComplete && <div>Data fetching complete!</div>}
       </div>
     );
   }
-
 
   if (error) {
     return (
@@ -77,7 +77,6 @@ const AvailableSection: React.FC = () => {
       </div>
     );
   }
-
 
   return (
     <div className="available">
