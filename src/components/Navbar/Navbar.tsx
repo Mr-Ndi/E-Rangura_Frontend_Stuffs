@@ -1,6 +1,7 @@
-import React from 'react';
+
+import React, { useState } from 'react';
 import './Navbar.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo.png';
 
 interface NavbarProps {
@@ -8,6 +9,14 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ setSearchQuery }) => {
+    const [inputValue, setInputValue] = useState<string>('');
+    const navigate = useNavigate();
+
+    const handleSearch = () => {
+        setSearchQuery(inputValue);
+        navigate('/available');
+    };
+
     return (
         <nav className="navbar">
             <div className="logo">
@@ -28,8 +37,15 @@ const Navbar: React.FC<NavbarProps> = ({ setSearchQuery }) => {
                 <input
                     type="text"
                     placeholder="Search products..."
-                    onChange={(e) => setSearchQuery(e.target.value)}
+                    value={inputValue}
+                    onChange={(e) => setInputValue(e.target.value)}
+                    onKeyPress={(e) => {
+                        if (e.key === 'Enter') {
+                            handleSearch();
+                        }
+                    }}
                 />
+                <button onClick={handleSearch}>Search</button>
             </div>
             <div className="icons">
                 <Link to="/">

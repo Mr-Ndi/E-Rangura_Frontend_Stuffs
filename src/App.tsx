@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import Footer from './components/Footer/Footer';
 import HeroSection from './components/HeroSection/HeroSection';
@@ -23,7 +23,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<HeroSection />} />
                     <Route path="/gallery" element={<GallerySection />} />
-                    <Route path="/available" element={<AvailableSection searchQuery={searchQuery} />} /> {/* Pass down searchQuery */}
+                    <Route path="/available" element={<AvailableSection searchQuery={searchQuery} />} />
                     <Route path="/shop" element={<Booking />} />
                     <Route path="/contact" element={<Contact />} />
                     <Route path="/about" element={<About />} />
