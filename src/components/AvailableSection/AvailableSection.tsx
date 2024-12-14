@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './AvailableSection.css';
-import Maize_flour from '../../assets/Maize-flour.jpg';
+import Minimex from '../../assets/Minimex.jpg';
 import Rice from '../../assets/rice.jpg';
-import Sunflower from '../../assets/Sunflower.jpg'
-import Barsoap from '../../assets/Barsoap.jpg'
+import ProgressBar from './ProgressBar/ProgressBar';
+import Sunflower from '../../assets/Sunflower.jpg';
+import Barsoap from '../../assets/Barsoap.jpg';
 
 const imageMapping: { [key: string]: string } = {
-  'Maize-flow': Maize_flour,
+  'Maize-flow': Minimex,
   'Rice': Rice,
   'oil': Sunflower,
-  'soap': Barsoap
+  'soap': Barsoap,
 };
 
 interface Product {
@@ -25,6 +26,8 @@ const AvailableSection: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [progress, setProgress] = useState<number>(0);
+  const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -36,15 +39,45 @@ const AvailableSection: React.FC = () => {
         console.error(error);
         setError('Failed to fetch products.');
       } finally {
-        setLoading(false);
+        setLoading(false)
       }
     };
 
-    fetchProducts();
+    const interval = setInterval(() => {
+      setProgress((oldProgress) => {
+        if (oldProgress >= 100) {
+          clearInterval(interval);
+          setIsComplete(true)
+          return oldProgress; 
+        }
+        return Math.min(oldProgress + Math.random() * 20, 100); 
+      });
+    }, 500); 
+
+    fetchProducts()
+
+    return () => clearInterval(interval); 
   }, []);
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+
+  if (loading || !isComplete) {
+    return (
+      <div>
+        <ProgressBar progress={progress} />
+        {isComplete && <div>Kuvoma ibihari birarangiye!</div>}
+      </div>
+    );
+  }
+
+
+  if (error) {
+    return (
+      <div>
+        Error: {error}
+      </div>
+    );
+  }
+
 
   return (
     <div className="available">
