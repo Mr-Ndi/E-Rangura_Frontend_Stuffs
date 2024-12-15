@@ -1,50 +1,99 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# E-Rangura Frontend
 
-Currently, two official plugins are available:
+E-Rangura is a web application designed for an online marketplace, allowing users to browse available products, manage their accounts, and make purchases. This project is built using React and TypeScript, providing a modern and responsive user experience.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Table of Contents
 
-## Expanding the ESLint configuration
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Getting Started](#getting-started)
+- [Usage](#usage)
+- [Folder Structure](#folder-structure)
+- [Contributing](#contributing)
+- [License](#license)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Features
 
-- Configure the top-level `parserOptions` property like this:
+- Browse available products with detailed descriptions and images.
+- Search functionality to quickly find products from any section.
+- User authentication for account management (login and account creation).
+- Responsive design for optimal viewing on various devices.
+- Progress indicators during data fetching.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## Technologies Used
+
+- **React**: A JavaScript library for building user interfaces.
+- **TypeScript**: A typed superset of JavaScript that compiles to plain JavaScript.
+- **Vite**: A build tool that provides a fast development environment.
+- **CSS**: For styling the components.
+- **Axios**: For making HTTP requests to the backend API.
+
+## Getting Started
+
+To get a local copy of the project up and running, follow these steps:
+
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/Mr-Ndi/e-rangura-frontend.git
+   cd e-rangura-frontend
+   ```
+
+2. **Install dependencies**:
+   Make sure you have Node.js installed. Then run:
+   ```bash
+   npm install
+   ```
+
+3. **Run the application**:
+   Start the development server with:
+   ```bash
+   npm run dev
+   ```
+   The application will be available at `http://localhost:3000`.
+
+## Usage
+
+Once the application is running:
+
+- Navigate through different sections using the navbar.
+- Use the search bar to find specific products.
+- View product details and add items to your cart.
+
+## Folder Structure
+
+The project follows a structured folder organization:
+
+```
+src/
+├── assets               # Images and other static assets
+├── components           # Reusable components for different sections
+│   ├── AboutSection     # About section component
+│   ├── AvailableSection  # Component displaying available products
+│   ├── Navbar           # Navigation bar component
+│   └── ...              # Other components
+├── App.tsx              # Main application component
+├── index.tsx            # Entry point of the application
+└── ...                  # Other files and configurations
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## Contributing
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+Contributions are welcome! If you have suggestions for improvements or features, please fork the repository and submit a pull request.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+1. Fork the project.
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`).
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`).
+4. Push to the branch (`git push origin feature/AmazingFeature`).
+5. Open a pull request.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+
+### Notes:
+1. **Replace Placeholder Text**: Be sure to replace `https://github.com/Mr-Ndi/e-rangura-frontend.git` with the actual URL of your repository.
+2. **License Section**: If you have a specific license for your project, make sure to include that in the `LICENSE` file and mention it in this section.
+
+I hope that this template has provided a solid foundation for my project's documentation!

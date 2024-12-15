@@ -11,6 +11,7 @@ import About from './components/AboutSection/AboutSection';
 import Posting from './components/PostingSection/PostingSection';
 import Login from './components/LoginSection/Login';
 import CreateAccount from './components/AccountCreation/AccountCreation';
+import UserDashboard from './components/ UserDashboard/ UserDashboard';
 import React, { useState } from 'react';
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
                     <Route path="/upload" element={<Posting />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/create-account" element={<CreateAccount />} />
+                    <Route path="/dashboard" element={<UserDashboard />} />
                 </Routes>
                 <Footer />
             </div>

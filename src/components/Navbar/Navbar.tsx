@@ -32,6 +32,7 @@ const Navbar: React.FC<NavbarProps> = ({ setSearchQuery }) => {
                 <li><Link to="/upload">Upload</Link></li>
                 <li><Link to="/about">About Us</Link></li>
                 <li><Link to="/contact">Contact</Link></li>
+                <li><Link to="/user-profile">Dashboard</Link></li>
             </ul>
             <div className="search-bar">
                 <input
