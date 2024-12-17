@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import './PostingSection.css';
 import ProgressBar from '../ProgressBar/ProgressBar';
+import { useAuth } from '../AuthContext/AuthContext';
 
 const PostingSection = () => {
+  const { token } = useAuth();
+
   const productOptions = [
     { label: 'Maize Flour', value: 'kuwunga' },
     { label: 'Oil', value: 'oil' },
@@ -53,7 +56,7 @@ const PostingSection = () => {
     setUploadMessage('Uploading your product...');
     setProgress(0);
 
-  
+    // Simulate progress
     const interval = setInterval(() => {
       setProgress((oldProgress) => {
         if (oldProgress >= 100) {
@@ -69,6 +72,7 @@ const PostingSection = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(payload),
       });
@@ -76,6 +80,7 @@ const PostingSection = () => {
       if (response.ok) {
         setSubmissionSuccess(true);
         setUploadMessage('Product uploaded successfully!');
+        // Reset form data
         setFormData({
           description: '',
           price: '',
@@ -83,7 +88,8 @@ const PostingSection = () => {
           product: ''
         });
       } else {
-        alert('There was an error creating the product');
+        const errorResponse = await response.json();
+        alert(`Error creating product: ${errorResponse.error}`);
       }
     } catch (error) {
       console.error('Error:', error);
@@ -106,7 +112,6 @@ const PostingSection = () => {
         <div>
           <ProgressBar progress={progress} message={uploadMessage} />
           {!isComplete && <div>Submitting your product...</div>}
-          {/* {isComplete && submissionSuccess && <div>Submission complete!</div>} */}
         </div>
       )}
 

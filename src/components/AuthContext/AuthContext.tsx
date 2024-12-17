@@ -1,30 +1,41 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, PropsWithChildren } from 'react';
 
+// Define the shape of the context
 interface AuthContextType {
-    isAuthenticated: boolean;
-    login: () => void;
+    token: string | null;
+    login: (newToken: string) => void;
     logout: () => void;
 }
 
+// Create the context
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+// Define the AuthProvider component
+export const AuthProvider: React.FC<PropsWithChildren<{}>> = ({ children }) => {
+    const [token, setToken] = useState<string | null>(localStorage.getItem('accessToken'));
 
-    const login = () => setIsAuthenticated(true);
-    const logout = () => setIsAuthenticated(false);
+    const login = (newToken: string) => {
+        setToken(newToken);
+        localStorage.setItem('accessToken', newToken);
+    };
+
+    const logout = () => {
+        setToken(null);
+        localStorage.removeItem('accessToken');
+    };
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
-            {children}
+        <AuthContext.Provider value={{ token, login, logout }}>
+            {children} {/* This allows other components to receive children */}
         </AuthContext.Provider>
     );
 };
 
+// Custom hook to use the Auth context
 export const useAuth = () => {
     const context = useContext(AuthContext);
-    if (context === undefined) {
-        throw new Error('useAuth must be used within an AuthProvider');
+    if (!context) {
+        throw new Error("useAuth must be used within an AuthProvider");
     }
     return context;
 };
