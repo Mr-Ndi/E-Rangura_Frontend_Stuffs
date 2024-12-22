@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './Login.css';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import ProgressBar from '../ProgressBar/ProgressBar';
-import { useAuth } from '../AuthContext/axiosInstance'; // Import useAuth
+import { useAuth } from '../AuthContext/AuthContext'; // Import useAuth
+import api from '../AuthContext/api'; // Import your API functions
 
 const Login: React.FC = () => {
     const { login } = useAuth(); // Get login function from AuthContext
@@ -32,17 +32,13 @@ const Login: React.FC = () => {
         }, 500);
 
         try {
-            const response = await axios.post('http://localhost:8000/api/users/login/', {
-                username,
-                password
-            });
+            // Use the custom API function for login
+            const response = await api.login({ username, password });
 
-            console.log(response.data);
-            if (response.status === 200) {
-            
-                login(response.data.access);
+            console.log(response); // Adjust based on your API response structure
+            if (response) {
+                login(response.access); // Assuming response.access contains the token
 
-            
                 setIsComplete(true);
             }
 

@@ -4,6 +4,7 @@ footer {
     font-family: Arial, sans-serif;
     margin-top: auto;
     padding-top: 30px;
+    padding-bottom: 0%;
     padding-bottom: 30px;
   }
   
@@ -49,6 +50,9 @@ footer {
     padding: 20px;
     background: #3d3a3a;
     border-top: 1px solid #88a508;
+    max-width: 800px; 
+    margin: 0 auto;
+    border-radius: 25%;
   }
   
   .footer_bottom .end {

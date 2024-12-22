@@ -8,18 +8,14 @@ const Footer: React.FC = () => {
                 <div className="footer_tag">
                     <h2>Location</h2>
                     <p>Kigali</p>
-                    {/* <p>Rubavu</p>
+                    <p>Rubavu</p>
                     <p>Musanze</p>
-                    <p>Huye</p>
-                    <p>Karongi</p> */}
                 </div>
                 <div className="footer_tag">
                     <h2>Quick Links</h2>
                     <p>Home</p>
-                    <p>About</p>
-                    {/* <p>Available</p>
-                    <p>Order</p>
-                    <p>Contact</p> */}
+                    <p>Available</p>
+                    <p>Contact</p>
                 </div>
                 <div className="footer_tag">
                     <h2>Contact</h2>
@@ -43,11 +39,11 @@ const Footer: React.FC = () => {
                     </div>
                 </div>
             </div>
-            {/* <div className="footer_bottom">
+            <div className="footer_bottom">
                 <p className="end">
-                    Designed by <span><i className="fa-solid fa-face-grin"></i> SOKONI Designer</span>
+                    Designed by <span><i className="fa-solid fa-face-grin"></i> SOKONI Designer, Beatrice Mukagasirabo et Poli Ninshuti Ndiramiye</span>
                 </p>
-            </div> */}
+            </div>
         </footer>
     );
 };

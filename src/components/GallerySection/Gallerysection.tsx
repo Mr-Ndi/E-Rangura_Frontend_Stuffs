@@ -8,7 +8,7 @@ const GallerySection: React.FC = () => {
       <div className="gallery">
         <div className="img">
           <a href="/project/1.jfif">
-            <img src="1.jfif" alt="Product 1" />
+            <img src="/Omo.jpg" alt="Product 1" />
           </a>
         </div>
         <div className="img">
@@ -18,17 +18,17 @@ const GallerySection: React.FC = () => {
         </div>
         <div className="img">
           <a href="/project/3.jpg">
-            <img src="ph.jpg" alt="Product 3" />
+            <img src="Oil.jpg" alt="Product 3" />
           </a>
         </div>
         <div className="img">
           <a href="/project/4.jpg">
-            <img src="Grice.jpg" alt="Product 4" />
+            <img src="TomatoPaste.jpg" alt="Product 4" />
           </a>
         </div>
         <div className="img">
           <a href="/project/5.jpg">
-            <img src="Salsa.jpg" alt="Product 5" />
+            <img src="Barsoap.jpg" alt="Product 5" />
           </a>
         </div>
         <div className="img">
@@ -37,22 +37,32 @@ const GallerySection: React.FC = () => {
           </a>
         </div>
         <div className="img">
-          <a href="/project/7.jfif">
+          <a href="/project/7.jpg">
             <img src="Azam.jpg" alt="Product 7" />
           </a>
         </div>
         <div className="img">
           <a href="/project/8.jpg">
-            <img src="8.jpg" alt="Product 8" />
+            <img src="Minimex.jpg" alt="Product 8" />
           </a>
         </div>
         <div className="img">
           <a href="/project/9.jpg">
-            <img src="Sunflower.jpeg" alt="Product 9" />
+            <img src="Sugar.jpg" alt="Product 9" />
           </a>
         </div>
         <div className="img">
-          <a href="/project/10.jfif">
+          <a href="/project/10.jpg">
+            <img src="Rice.jpg" alt="Product 9" />
+          </a>
+        </div>
+        <div className="img">
+          <a href="/project/11.jpg">
+            <img src="Tpaper.jpg" alt="Product 9" />
+          </a>
+        </div>
+        <div className="img">
+          <a href="/project/12.jfif">
             <img src="Ciment.jpeg" alt="Product 10" />
           </a>
         </div>
