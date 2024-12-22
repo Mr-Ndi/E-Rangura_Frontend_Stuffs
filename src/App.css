@@ -1,19 +1,20 @@
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    margin: 0;
-    height: 100%;
- }
- 
- h2, h3, h4 {
-    color: black;
- }
- .App {
+html, body {
+   font-family: Arial, sans-serif;
+   height: 100%;
+   margin: 0;
+}
+
+#root {
+   display: flex;
+   flex-direction: column;
+   min-height: 100vh;
+}
+.App {
    display: flex;
    flex-direction: column;
    min-height: 100vh;
 }
 
-
- 
- 
+.footer {
+   margin-top: auto;
+}

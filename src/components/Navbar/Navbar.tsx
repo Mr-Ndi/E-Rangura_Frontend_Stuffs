@@ -46,7 +46,7 @@ const Navbar: React.FC<NavbarProps> = ({ setSearchQuery }) => {
                         }
                     }}
                 />
-                <button onClick={handleSearch}>Search</button>
+                <button onClick={handleSearch} className='search-btn'>Search</button>
             </div>
             <div className="icons">
                 <Link to="/">

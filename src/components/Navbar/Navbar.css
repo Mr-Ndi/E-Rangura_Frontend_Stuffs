@@ -17,15 +17,23 @@
     font-size: x-large;
     cursor: pointer;
 }
-
-/* Remove underline from links */
 .nav-links li a {
-    text-decoration: none; /* Remove underline */
-    color: gold; /* Ensure link color matches navbar text color */
+    text-decoration: none;
+    color: gold;
+}
+.search-bar {
+    display: flex;
+    align-items: center;
 }
 
 .search-bar input {
     padding: 5px;
+    max-width: 80%;
+    margin-right: 10px;
+}
+
+.search-btn {
+    margin-left: 2%;
 }
 
 .icons span {
