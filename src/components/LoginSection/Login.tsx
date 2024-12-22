@@ -3,7 +3,7 @@ import './Login.css';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import ProgressBar from '../ProgressBar/ProgressBar';
-import { useAuth } from '../AuthContext/AuthContext'; // Import useAuth
+import { useAuth } from '../AuthContext/axiosInstance'; // Import useAuth
 
 const Login: React.FC = () => {
     const { login } = useAuth(); // Get login function from AuthContext

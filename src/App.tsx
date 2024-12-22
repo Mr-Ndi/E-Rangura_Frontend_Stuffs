@@ -13,7 +13,7 @@ import Login from './components/LoginSection/Login';
 import CreateAccount from './components/AccountCreation/AccountCreation';
 import UserDashboard from './components/ UserDashboard/ UserDashboard';
 import React, { useState } from 'react';
-import { AuthProvider } from './components/AuthContext/AuthContext';
+import { AuthProvider } from './components/AuthContext/axiosInstance';
 import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
 
 function App() {

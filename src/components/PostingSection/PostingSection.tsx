@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './PostingSection.css';
 import ProgressBar from '../ProgressBar/ProgressBar';
-import { useAuth } from '../AuthContext/AuthContext';
+import { useAuth } from '../AuthContext/axiosInstance';
 
 const PostingSection = () => {
   const { token } = useAuth();
