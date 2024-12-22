@@ -9,7 +9,7 @@ import Booking from './components/BookingSection/BookingSection';
 import Contact from './components/ContactSection/ContactSection';
 import About from './components/AboutSection/AboutSection';
 import Posting from './components/PostingSection/PostingSection';
-// import Login from './components/LoginSection/Login';
+import Login from './components/LoginSection/Login';
 // import CreateAccount from './components/AccountCreation/AccountCreation';
 // import UserDashboard from './components/ UserDashboard/ UserDashboard';
 import React, { useState } from 'react';
@@ -28,7 +28,8 @@ function App() {
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/available" element={<AvailableSection searchQuery={searchQuery} />} />
-                <Route path="/uploading" element={<Posting />} />
+                <Route path="/upload" element={<Posting />} />
+                <Route path="/login" element={<Login />} />
             </Routes>
             <Footer />
         </Router>
@@ -62,7 +63,6 @@ export default App;
 //                                 </ProtectedRoute>
 //                             } 
 //                         />
-//                         <Route path="/login" element={<Login />} />
 //                         <Route path="/create-account" element={<CreateAccount />} />
 //                     </Routes>
 //                     <Footer />

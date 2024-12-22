@@ -43,9 +43,13 @@ const createAccount = async(accountData: AccountData) => {
     }
 };
 
-const upload = async(productDetails: ProductDetails) => {
+const upload = async(productDetails: ProductDetails, token: string) => {
     try{
-        const response = await axiosInstance.post('poli/product/', productDetails)
+        const response = await axiosInstance.post('poli/product/', productDetails,{
+            headers:{
+                'Authorization': `Bearer ${token}`
+            }
+        })
         return response.data;
     }catch(error){
         throw error

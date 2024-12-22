@@ -1,112 +1,129 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import './AvailableSection.css';
 import Minimex from '../../assets/Minimex.jpg';
 import Rice from '../../assets/rice.jpg';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import Sunflower from '../../assets/Sunflower.jpg';
 import Barsoap from '../../assets/Barsoap.jpg';
+import api from '../AuthContext/api';
 
 const imageMapping: { [key: string]: string } = {
-  'Maize-flow': Minimex,
-  'Rice': Rice,
-  'oil': Sunflower,
-  'soap': Barsoap,
+    'Maize-flow': Minimex,
+    'Rice': Rice,
+    'oil': Sunflower,
+    'soap': Barsoap,
 };
 
 interface Product {
-  id: number;
-  name: string;
-  description: string;
-  price: string;
-  stock_quantity: number;
+    id: number;
+    name: string;
+    description: string;
+    price: string;
+    stock_quantity: number;
 }
 
 interface AvailableSectionProps {
-  searchQuery: string;
+    searchQuery: string;
 }
 
 const AvailableSection: React.FC<AvailableSectionProps> = ({ searchQuery }) => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-  const [progress, setProgress] = useState<number>(0);
-  const [isComplete, setIsComplete] = useState<boolean>(false);
-  const [loadingMessage, setLoadingMessage] = useState<string>('Fetching products...');
+    const [products, setProducts] = useState<Product[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string | null>(null);
+    const [progress, setProgress] = useState<number>(0);
+    const [isComplete, setIsComplete] = useState<boolean>(false);
+    const [loadingMessage, setLoadingMessage] = useState<string>('Fetching products...');
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        setLoadingMessage('Fetching products...');
-        const response = await axios.get('http://127.0.0.1:8000/api/store/products/');
-        setProducts(response.data);
-        console.log(response.data);
-      } catch (error) {
-        console.error(error);
-        setError('Failed to fetch products.');
-      } finally {
-        setLoading(false);
-      }
-    };
+    useEffect(() => {
+        const fetchProducts = async () => {
+            let intervalId: ReturnType<typeof setInterval> | undefined;
 
-    const interval = setInterval(() => {
-      setProgress((oldProgress) => {
-        if (oldProgress >= 100) {
-          clearInterval(interval);
-          setIsComplete(true);
-          return oldProgress; 
-        }
-        return Math.min(oldProgress + Math.random() * 20, 100); 
-      });
-    }, 500); 
+            try {
+                setLoadingMessage('Fetching products...');
+                // Using the singleProduct function from the API but without parameters
+                // to get all products
+                const response = await api.singleProduct({ name: '' });
+                // Since singleProduct returns ProductDetails, we need to ensure it matches
+                // the Product interface or transform the data
+                const transformedProducts: Product[] = Array.isArray(response) ? 
+                    response.map(item => ({
+                        id: item.owner_id, // Using owner_id as id since it's available
+                        name: item.name,
+                        description: item.description,
+                        price: item.price.toString(),
+                        stock_quantity: item.stock_quantity
+                    })) : [];
+                setProducts(transformedProducts);
+                console.log(transformedProducts);
+            } catch (error) {
+                console.error(error);
+                setError('Failed to fetch products.');
+            } finally {
+                setLoading(false);
+                if (intervalId) clearInterval(intervalId);
+            }
+        };
 
-    fetchProducts();
+        const intervalId = setInterval(() => {
+            setProgress((oldProgress) => {
+                if (oldProgress >= 100) {
+                    clearInterval(intervalId);
+                    setIsComplete(true);
+                    return oldProgress;
+                }
+                return Math.min(oldProgress + Math.random() * 20, 100);
+            });
+        }, 500);
 
-    return () => clearInterval(interval); 
-  }, []);
+        fetchProducts();
 
-  if (loading || !isComplete) {
-    return (
-      <div>
-        <ProgressBar progress={progress} message={loadingMessage} />
-        {isComplete && <div>Data fetching complete!</div>}
-      </div>
-    );
-  }
+        return () => {
+            if (intervalId) clearInterval(intervalId);
+        };
+    }, []);
 
-  if (error) {
-    return (
-      <div>
-        Error: {error}
-      </div>
-    );
-  }
-
-  const filteredProducts = products.filter(product =>
-    product.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  return (
-    <div className="available">
-      <h2>Available Products</h2>
-      <div className="av-box">
-        {filteredProducts.map((product) => (
-          <div key={product.id} className="av-card">
-            <div className="av_image">
-              <img src={imageMapping[product.name] || 'default-image.jpg'} alt={product.name} />
+    if (loading || !isComplete) {
+        return (
+            <div>
+                <ProgressBar progress={progress} message={loadingMessage} />
+                {isComplete && <div>Data fetching complete!</div>}
             </div>
-            <div className="av_info">
-              <h3>{product.name}</h3>
-              <p>{product.description}</p>
-              <p>Price: ${product.price}</p>
-              <p>Stock Quantity: {product.stock_quantity}</p>
-              <a href="#" className="av-btn">Add to Cart</a>
+        );
+    }
+
+    if (error) {
+        return (
+            <div>
+                Error: {error}
             </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+        );
+    }
+
+    const filteredProducts = products.filter(product =>
+        product.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    return (
+        <div className="available">
+            <h2>Available Products</h2>
+            <div className="av-box">
+                {filteredProducts.map((product) => (
+                    <div key={product.id} className="av-card">
+                        <div className="av_image">
+                            <img src={imageMapping[product.name] || 'default-image.jpg'} alt={product.name} />
+                        </div>
+                        <div className="av_info">
+                            <h3>{product.name}</h3>
+                            <p>{product.description}</p>
+                            <p>Price: ${product.price}</p>
+                            <p>Stock Quantity: {product.stock_quantity}</p>
+                            <a href="#" className="av-btn">Add to Cart</a>
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
 };
 
 export default AvailableSection;
