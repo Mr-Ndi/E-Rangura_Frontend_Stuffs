@@ -10,7 +10,7 @@ import Contact from './components/ContactSection/ContactSection';
 import About from './components/AboutSection/AboutSection';
 import Posting from './components/PostingSection/PostingSection';
 import Login from './components/LoginSection/Login';
-// import CreateAccount from './components/AccountCreation/AccountCreation';
+import CreateAccount from './components/AccountCreation/AccountCreation';
 // import UserDashboard from './components/ UserDashboard/ UserDashboard';
 import React, { useState } from 'react';
 // import { AuthProvider } from './components/AuthContext/axiosInstance';
@@ -30,6 +30,7 @@ function App() {
                 <Route path="/available" element={<AvailableSection searchQuery={searchQuery} />} />
                 <Route path="/upload" element={<Posting />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/create-account" element={<CreateAccount />} />
             </Routes>
             <Footer />
         </Router>
@@ -63,7 +64,6 @@ export default App;
 //                                 </ProtectedRoute>
 //                             } 
 //                         />
-//                         <Route path="/create-account" element={<CreateAccount />} />
 //                     </Routes>
 //                     <Footer />
 //                 </div>

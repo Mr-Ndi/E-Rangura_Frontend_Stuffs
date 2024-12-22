@@ -11,7 +11,8 @@ interface AccountData{
     sector: string;
     telephone: string;
     username: string;
-    profile_picture: string;
+    password: string;
+    profile_picture?: string;
 }
 interface ProductDetails{
     name: string;

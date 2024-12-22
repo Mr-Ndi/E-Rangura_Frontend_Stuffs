@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import './AccountCreation.css';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../AuthContext/api';
 
 const AccountCreation: React.FC = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [names, setNames] = useState('');
+    const [district, setDistrict] = useState('');
+    const [sector, setSector] = useState('');
+    const [telephone, setTelephone] = useState('');
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
     const navigate = useNavigate();
@@ -21,18 +25,18 @@ const AccountCreation: React.FC = () => {
         }
     
         try {
-            const response = await axios.post('http://localhost:8000/api/users/register/', {
+            const response = await api.createAccount({
                 username,
                 email,
                 password,
-            }, {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+                names,
+                district,
+                sector,
+                telephone,
+                profile_picture: '',
             });
     
-        
-            if (response.status === 201) {
+            if (response) {
                 setSuccessMessage('User created successfully! You can now log in.');
                 setErrorMessage(null);
             
@@ -43,8 +47,10 @@ const AccountCreation: React.FC = () => {
         } catch (error: unknown) {
             if (error instanceof Error) {
                 console.error('Error message:', error.message);
+                setErrorMessage('An error occurred while creating the account. Please try again.');
             } else {
                 console.error('An unknown error occurred:', error);
+                setErrorMessage('An unknown error occurred. Please try again.');
             }
         }
     };
@@ -56,6 +62,16 @@ const AccountCreation: React.FC = () => {
                 {successMessage && <div className="success-message">{successMessage}</div>}
                 
                 <form onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <label htmlFor="names">Full Name</label>
+                        <input 
+                            type="text" 
+                            id="names" 
+                            value={names}
+                            onChange={(e) => setNames(e.target.value)}
+                            required 
+                        />
+                    </div>
                     <div className="form-group">
                         <label htmlFor="username">Username</label>
                         <input 
@@ -73,6 +89,37 @@ const AccountCreation: React.FC = () => {
                             id="email" 
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            required 
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="district">District</label>
+                        <input 
+                            type="text" 
+                            id="district" 
+                            value={district}
+                            onChange={(e) => setDistrict(e.target.value)}
+                            required 
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="sector">Sector</label>
+                        <input 
+                            type="text" 
+                            id="sector" 
+                            value={sector}
+                            onChange={(e) => setSector(e.target.value)}
+                            required 
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="telephone">Telephone</label>
+                        <input 
+                            type="tel" 
+                            id="telephone" 
+                            value={telephone}
+                            onChange={(e) => setTelephone(e.target.value)}
+                            maxLength={13}
                             required 
                         />
                     </div>
@@ -103,8 +150,8 @@ const AccountCreation: React.FC = () => {
                 </form>
             </div>
             <div className='signup-descipt'>
-            <h2>Sign Up</h2>
-            <p>Hey just sign up in order to upload the product</p>
+                <h2>Sign Up</h2>
+                <p>Hey just sign up in order to upload the product</p>
             </div>
         </div>
     );
