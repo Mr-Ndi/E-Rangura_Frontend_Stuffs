@@ -2,11 +2,9 @@ import React, { useState, useEffect } from 'react';
 import './Login.css';
 import { Link, useNavigate } from 'react-router-dom';
 import ProgressBar from '../ProgressBar/ProgressBar';
-import { useAuth } from '../AuthContext/AuthContext'; // Import useAuth
 import api from '../AuthContext/api'; // Import your API functions
 
 const Login: React.FC = () => {
-    const { login } = useAuth(); // Get login function from AuthContext
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState<boolean>(false);
@@ -37,7 +35,8 @@ const Login: React.FC = () => {
 
             console.log(response); // Adjust based on your API response structure
             if (response) {
-                login(response.access); // Assuming response.access contains the token
+                // Store the token in local storage
+                localStorage.setItem('token', response.access); // Adjust based on your API response structure
 
                 setIsComplete(true);
             }
