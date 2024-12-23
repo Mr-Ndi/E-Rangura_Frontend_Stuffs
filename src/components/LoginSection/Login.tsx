@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './Login.css';
 import { Link, useNavigate } from 'react-router-dom';
 import ProgressBar from '../ProgressBar/ProgressBar';
-import api from '../AuthContext/api'; // Import your API functions
+import api from '../AuthContext/api';
 
 const Login: React.FC = () => {
     const [username, setUsername] = useState('');
@@ -10,8 +10,10 @@ const Login: React.FC = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [progress, setProgress] = useState<number>(0);
     const [isComplete, setIsComplete] = useState<boolean>(false);
+    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(!!localStorage.getItem('token'));
     const navigate = useNavigate();
 
+    // Handle form submission for login
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         
@@ -19,6 +21,7 @@ const Login: React.FC = () => {
         setProgress(0);
         setIsComplete(false);
 
+        // Simulate progress bar
         const interval = setInterval(() => {
             setProgress((oldProgress) => {
                 if (oldProgress >= 100) {
@@ -30,15 +33,15 @@ const Login: React.FC = () => {
         }, 500);
 
         try {
-            // Use the custom API function for login
+            // Call the login API function
             const response = await api.login({ username, password });
 
-            console.log(response); // Adjust based on your API response structure
+            console.log(response);
             if (response) {
-                // Store the token in local storage
-                localStorage.setItem('token', response.access); // Adjust based on your API response structure
-
-                setIsComplete(true);
+                // Store token in local storage
+                localStorage.setItem('token', response.access);
+                setIsLoggedIn(true); // Update login state
+                setIsComplete(true); // Set completion state for redirection
             }
 
         } catch (error) {
@@ -50,12 +53,24 @@ const Login: React.FC = () => {
         }
     };
 
-    // Redirect when progress is complete
+    // Redirect to home if login is complete
     useEffect(() => {
         if (isComplete) {
             navigate('/'); // Redirect to home or desired route after login
         }
     }, [isComplete, navigate]);
+
+    // Handle logout functionality
+    const handleLogout = async () => {
+        try {
+            await api.logout(); // Call the logout API function
+            localStorage.removeItem('token'); // Clear token from local storage
+            setIsLoggedIn(false); // Update login state
+            alert('You have been logged out successfully.');
+        } catch (error) {
+            console.error('Logout failed:', error);
+        }
+    };
 
     return (
         <div className="login-container">
@@ -67,32 +82,40 @@ const Login: React.FC = () => {
                 {loading && (
                     <ProgressBar progress={progress} message="Logging in..." />
                 )}
-                <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label htmlFor="username">Username</label>
-                        <input 
-                            type="text" 
-                            id="username" 
-                            value={username} 
-                            onChange={(e) => setUsername(e.target.value)}
-                            required 
-                        />
+                
+                {!isLoggedIn ? (
+                    <form onSubmit={handleSubmit}>
+                        <div className="form-group">
+                            <label htmlFor="username">Username</label>
+                            <input 
+                                type="text" 
+                                id="username" 
+                                value={username} 
+                                onChange={(e) => setUsername(e.target.value)}
+                                required 
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="password">Password</label>
+                            <input 
+                                type="password" 
+                                id="password" 
+                                value={password} 
+                                onChange={(e) => setPassword(e.target.value)}
+                                required 
+                            />
+                        </div>
+                        <button type="submit" className='button'>Login</button>
+                        <Link to='/create-account'>
+                            <p className="description">Don't have an account? Sign up to get started!</p>
+                        </Link>
+                    </form>
+                ) : (
+                    <div>
+                        <h2>It was an honor to collaborate with you!</h2>
+                        <button onClick={handleLogout} className='button'>Logout</button>
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="password">Password</label>
-                        <input 
-                            type="password" 
-                            id="password" 
-                            value={password} 
-                            onChange={(e) => setPassword(e.target.value)}
-                            required 
-                        />
-                    </div>
-                    <button type="submit" className='button'>Login</button>
-                    <Link to='/create-account'>
-                        <p className="description">Don't have an account? Sign up to get started!</p>
-                    </Link>
-                </form>
+                )}
             </div>
         </div>
     );

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './AccountCreation.css';
 import { Link, useNavigate } from 'react-router-dom';
+import ProgressBar from '../ProgressBar/ProgressBar';
 import api from '../AuthContext/api';
 
 const AccountCreation: React.FC = () => {
@@ -14,6 +15,9 @@ const AccountCreation: React.FC = () => {
     const [telephone, setTelephone] = useState('');
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const [successMessage, setSuccessMessage] = useState<string | null>(null);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [progress, setProgress] = useState<number>(0);
+    const [isComplete, setIsComplete] = useState<boolean>(false);
     const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -23,7 +27,21 @@ const AccountCreation: React.FC = () => {
             setErrorMessage("Passwords do not match.");
             return;
         }
-    
+
+        setLoading(true);
+        setProgress(0);
+        setIsComplete(false);
+
+        const interval = setInterval(() => {
+            setProgress((oldProgress) => {
+                if (oldProgress >= 100) {
+                    clearInterval(interval);
+                    return oldProgress;
+                }
+                return Math.min(oldProgress + Math.random() * 20, 100); 
+            });
+        }, 500);
+
         try {
             const response = await api.createAccount({
                 username,
@@ -40,6 +58,10 @@ const AccountCreation: React.FC = () => {
                 setSuccessMessage('User created successfully! You can now log in.');
                 setErrorMessage(null);
             
+                // Simulate completion
+                setIsComplete(true);
+
+                // Redirect after a short delay
                 setTimeout(() => {
                     navigate('/login');
                 }, 2000);
@@ -52,12 +74,18 @@ const AccountCreation: React.FC = () => {
                 console.error('An unknown error occurred:', error);
                 setErrorMessage('An unknown error occurred. Please try again.');
             }
+        } finally {
+            clearInterval(interval);
+            setLoading(false);
         }
     };
 
     return (
         <div className="login-container">
             <div className="content">
+                {loading && (
+                    <ProgressBar progress={progress} message="Creating account..." />
+                )}
                 {errorMessage && <div className="error-message">{errorMessage}</div>}
                 {successMessage && <div className="success-message">{successMessage}</div>}
                 
