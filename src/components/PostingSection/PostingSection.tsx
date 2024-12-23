@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import {jwtDecode} from 'jwt-decode';
 import './PostingSection.css';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import api from '../AuthContext/api';
@@ -31,7 +32,7 @@ const PostingSection = () => {
   useEffect(() => {
       const token = localStorage.getItem('token');
       if (!token) {
-        navigate('/login');
+        navigate('/login'); // Redirect to login if no token is found
       }
   }, [navigate]);
 
@@ -54,16 +55,22 @@ const PostingSection = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
 
-      const loginCredentials = { username: 'yourUsername', password: 'yourPassword' };
-      let token: string;
-      let ownerId: number;
-      let intervalId: ReturnType<typeof setInterval> | undefined;
+      // Retrieve the access token and decode it to get the user ID
+      const token = localStorage.getItem('token');
+      
+      if (!token) {
+          alert('Authentication token is required');
+          return; // Exit if no token is found
+      }
 
+      let ownerId;
+      
       try {
-          const loginResponse = await api.login(loginCredentials);
-          token = loginResponse.access;
-          ownerId = loginResponse.user_id;
-          
+          // Decode the token to extract user information
+          const decodedToken: any = jwtDecode(token); // Decode the token
+          ownerId = decodedToken.user_id; // Adjust this based on your token structure
+
+          // Prepare the payload for uploading the product
           const payload = {
               name: formData.product,
               description: formData.description,
@@ -71,28 +78,31 @@ const PostingSection = () => {
               stock_quantity: parseInt(formData.stock_quantity, 10),
               unit: formData.unit,
               minimum_for_deliver: formData.minimum_for_deliver,
-              owner_id: ownerId
+              owner_id: ownerId // Set owner_id from decoded token
           };
 
           setIsSubmitting(true);
           setUploadMessage('Uploading your product...');
           setProgress(0);
 
-          intervalId = setInterval(() => {
+          // Simulate progress bar for UX
+          const intervalId = setInterval(() => {
               setProgress((oldProgress) => {
                   if (oldProgress >= 100) {
-                      if (intervalId) clearInterval(intervalId);
+                      clearInterval(intervalId);
                       return oldProgress;
                   }
                   return Math.min(oldProgress + Math.random() * 20, 100);
               });
           }, 500);
 
-          await api.upload(payload, token);
+          // Call the upload function from your API context
+          await api.upload(payload); // Ensure this handles authorization internally
 
           setSubmissionSuccess(true);
           setUploadMessage('Product uploaded successfully!');
-          
+
+          // Reset form data after successful submission
           setFormData({
               description: '',
               price: '',
@@ -106,10 +116,9 @@ const PostingSection = () => {
           console.error('Error:', error);
           alert('An error occurred while submitting the form');
       } finally {
-          if (intervalId) clearInterval(intervalId);
           setIsComplete(true);
           setIsSubmitting(false);
-          setProgress(100);
+          setProgress(100); // Finalize progress bar
       }
   };
 
