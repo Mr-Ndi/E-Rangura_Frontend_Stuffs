@@ -4,16 +4,20 @@ import { Link, useNavigate } from 'react-router-dom';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import api from '../AuthContext/api';
 
-const Login: React.FC = () => {
+interface AuthProps {
+    setIsLoggedIn: (loggedIn: boolean) => void;
+    isLoggedIn: boolean;
+}
+
+const Auth: React.FC<AuthProps> = ({ setIsLoggedIn, isLoggedIn }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState<boolean>(false);
     const [progress, setProgress] = useState<number>(0);
     const [isComplete, setIsComplete] = useState<boolean>(false);
-    const [isLoggedIn, setIsLoggedIn] = useState<boolean>(!!localStorage.getItem('token'));
     const navigate = useNavigate();
 
-    // Handle form submission for login
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         
@@ -21,27 +25,22 @@ const Login: React.FC = () => {
         setProgress(0);
         setIsComplete(false);
 
-        // Simulate progress bar
+    
         const interval = setInterval(() => {
-            setProgress((oldProgress) => {
-                if (oldProgress >= 100) {
-                    clearInterval(interval);
-                    return oldProgress;
-                }
-                return Math.min(oldProgress + Math.random() * 20, 100); 
-            });
+            setProgress((oldProgress) => Math.min(oldProgress + Math.random() * 20, 100));
         }, 500);
 
         try {
-            // Call the login API function
+        
             const response = await api.login({ username, password });
 
             console.log(response);
             if (response) {
-                // Store token in local storage
+            
                 localStorage.setItem('token', response.access);
-                setIsLoggedIn(true); // Update login state
-                setIsComplete(true); // Set completion state for redirection
+                localStorage.setItem('refreshToken', response.refresh);
+                setIsLoggedIn(true);
+                setIsComplete(true);
             }
 
         } catch (error) {
@@ -53,30 +52,31 @@ const Login: React.FC = () => {
         }
     };
 
-    // Redirect to home if login is complete
-    useEffect(() => {
-        if (isComplete) {
-            navigate('/'); // Redirect to home or desired route after login
-        }
-    }, [isComplete, navigate]);
 
-    // Handle logout functionality
     const handleLogout = async () => {
         try {
-            await api.logout(); // Call the logout API function
-            localStorage.removeItem('token'); // Clear token from local storage
-            setIsLoggedIn(false); // Update login state
-            alert('You have been logged out successfully.');
+          await api.logout(); // Call your logout API function
+          setIsLoggedIn(false); // Update login state to false after successful logout
+          alert('You have been logged out successfully.');
         } catch (error) {
-            console.error('Logout failed:', error);
+          console.error('Logout failed:', error);
+          alert('Logout failed. Please try again.');
         }
-    };
+      };
+      
+
+
+    useEffect(() => {
+        if (isComplete) {
+            navigate('/');
+        }
+    }, [isComplete, navigate]);
 
     return (
         <div className="login-container">
             <div className="descipt">
-                <h2>Login</h2>
-                <p>Hey just Login in order to upload the product</p>
+                <h2>{isLoggedIn ? "Welcome Back!" : "Login"}</h2>
+                <p>{isLoggedIn ? "You are logged in." : "Please log in to continue."}</p>
             </div>
             <div className="pcontent">
                 {loading && (
@@ -121,4 +121,4 @@ const Login: React.FC = () => {
     );
 };
 
-export default Login;
+export default Auth;
