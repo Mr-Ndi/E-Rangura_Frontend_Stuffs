@@ -27,8 +27,19 @@ interface ProductDetails {
   owner_id: number;
 }
 
-interface SingleProductParams {
-  name: string;
+interface ProductResponse {
+  message: string;
+  products: Array<{
+    product_id: number;
+    name: string;
+    price: number;
+    stock_quantity: number;
+    unit: string;
+    minimum_for_deliver: number;
+    description: string;
+    owner_id: number;
+    created_at: string;
+  }>
 }
 
 interface LoginResponse {
@@ -139,22 +150,15 @@ const upload = async (productDetails: ProductDetails): Promise<any | undefined> 
 };
 
 // Fetch single product details with access token management
-const singleProduct = async (params: SingleProductParams): Promise<ProductDetails | undefined> => {
+const singleProduct = async (params: ProductResponse): Promise<ProductResponse> => {
   try {
-    const token = localStorage.getItem('token'); // Retrieve access token from local storage
-    
-    const response = await axiosInstance.get(API_ROUTES.PRODUCTS, {
-      params,
-      headers: {
-        'Authorization': `Bearer ${token}` // Use the stored access token for authentication
-      }
-    });
-    
-    return response.data; // Return response data for further use
-    
+      const response = await axiosInstance.get<ProductResponse>(API_ROUTES.PRODUCTS + '/', {
+          params
+      });
+      return response.data;
   } catch (error) {
-    handleApiError(error);
-    return undefined; // Return undefined on error
+      handleApiError(error);
+      throw error; // or handle error as needed
   }
 };
 

@@ -11,7 +11,7 @@ const imageMapping: { [key: string]: string } = {
     'Maize-flow': Minimex,
     'Rice': Rice,
     'oil': Sunflower,
-    'soap': Barsoap,
+    'Soap': Barsoap,
 };
 
 interface Product {
@@ -26,49 +26,57 @@ interface AvailableSectionProps {
     searchQuery: string;
 }
 
+interface ProductResponse {
+    message: string;
+    products: Array<{
+        product_id: number;
+        name: string;
+        price: number;
+        stock_quantity: number;
+        unit: string;
+        minimum_for_deliver: number;
+        description: string;
+        owner_id: number;
+        created_at: string;
+    }>;
+}
+
 const AvailableSection: React.FC<AvailableSectionProps> = ({ searchQuery }) => {
     const [products, setProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [progress, setProgress] = useState<number>(0);
     const [isComplete, setIsComplete] = useState<boolean>(false);
-    const [loadingMessage, setLoadingMessage] = useState<string>('Fetching products...');
 
     useEffect(() => {
         const fetchProducts = async () => {
-            let intervalId: ReturnType<typeof setInterval> | undefined;
-
             try {
-                setLoadingMessage('Fetching products...');
-                // Using the singleProduct function from the API but without parameters
-                // to get all products
-                const response = await api.singleProduct({ name: '' });
-                // Since singleProduct returns ProductDetails, we need to ensure it matches
-                // the Product interface or transform the data
-                const transformedProducts: Product[] = Array.isArray(response) ? 
-                    response.map(item => ({
-                        id: item.owner_id, // Using owner_id as id since it's available
-                        name: item.name,
-                        description: item.description,
-                        price: item.price.toString(),
-                        stock_quantity: item.stock_quantity
-                    })) : [];
+                const response = await api.singleProduct({ message: '' });
+                
+            
+                const transformedProducts: Product[] = response.products.map((item) => ({
+                    id: item.product_id,
+                    name: item.name,
+                    description: item.description,
+                    price: item.price.toString(),
+                    stock_quantity: item.stock_quantity
+                }));
+                
                 setProducts(transformedProducts);
-                console.log(transformedProducts);
             } catch (error) {
                 console.error(error);
                 setError('Failed to fetch products.');
             } finally {
                 setLoading(false);
-                if (intervalId) clearInterval(intervalId);
+                setIsComplete(true);
             }
         };
-
+        
+    
         const intervalId = setInterval(() => {
             setProgress((oldProgress) => {
                 if (oldProgress >= 100) {
                     clearInterval(intervalId);
-                    setIsComplete(true);
                     return oldProgress;
                 }
                 return Math.min(oldProgress + Math.random() * 20, 100);
@@ -78,26 +86,22 @@ const AvailableSection: React.FC<AvailableSectionProps> = ({ searchQuery }) => {
         fetchProducts();
 
         return () => {
-            if (intervalId) clearInterval(intervalId);
+            clearInterval(intervalId);
         };
     }, []);
 
-    if (loading || !isComplete) {
+    if (loading) {
         return (
             <div>
-                <ProgressBar progress={progress} message={loadingMessage} />
-                {isComplete && <div>Data fetching complete!</div>}
+                <ProgressBar progress={progress} message="Fetching products..." />
             </div>
         );
     }
 
     if (error) {
-        return (
-            <div>
-                Error: {error}
-            </div>
-        );
+        return <div>Error: {error}</div>;
     }
+
 
     const filteredProducts = products.filter(product =>
         product.name.toLowerCase().includes(searchQuery.toLowerCase())
