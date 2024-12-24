@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './AvailableSection.css';
 import Minimex from '../../assets/Minimex.jpg';
-import Rice from '../../assets/rice.jpg';
+import Rice from '../../assets/Rice.jpg';
 import ProgressBar from '../ProgressBar/ProgressBar';
 import Sunflower from '../../assets/Sunflower.jpg';
 import Barsoap from '../../assets/Barsoap.jpg';
@@ -10,6 +10,7 @@ import api from '../AuthContext/api';
 const imageMapping: { [key: string]: string } = {
     'Maize-flow': Minimex,
     'Rice': Rice,
+    'rice': Rice,
     'oil': Sunflower,
     'Soap': Barsoap,
 };
@@ -119,7 +120,7 @@ const AvailableSection: React.FC<AvailableSectionProps> = ({ searchQuery }) => {
                         <div className="av_info">
                             <h3>{product.name}</h3>
                             <p>{product.description}</p>
-                            <p>Price: ${product.price}</p>
+                            <p>Price: {product.price} Rwf</p>
                             <p>Stock Quantity: {product.stock_quantity}</p>
                             <a href="#" className="av-btn">Add to Cart</a>
                         </div>
