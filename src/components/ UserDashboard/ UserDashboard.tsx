@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 // Sample interfaces for TypeScript
 interface Order {
-    id: number;
-    items: string[];
-    total: number;
+    order_id: number; // Adjusted to match your API response
+    product_id: number;
+    quantity: number;
+    total_price: string; // Assuming this is a string based on your previous code
     status: string;
+    created_at: string;
+    updated_at: string;
 }
 
 interface Product {
@@ -50,10 +53,10 @@ const OrderManagement: React.FC = () => {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/my-orders/', {
+                const response = await axios.get('http://127.0.0.1:8000/api/orders/', { // Adjusted endpoint
                     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
                 });
-                setOrders(response.data);
+                setOrders(response.data.orders); // Adjusted based on expected response structure
             } catch (error) {
                 console.error(error);
                 setError('Failed to fetch orders.');
@@ -75,10 +78,12 @@ const OrderManagement: React.FC = () => {
                 <p>No orders found.</p>
             ) : (
                 orders.map(order => (
-                    <div key={order.id}>
-                        <h3>Order ID: {order.id}</h3>
+                    <div key={order.order_id}>
+                        <h3>Order ID: {order.order_id}</h3>
                         <p>Status: {order.status}</p>
-                        <p>Total Amount: ${order.total}</p>
+                        <p>Total Amount: ${parseFloat(order.total_price).toFixed(2)}</p> {/* Format total price */}
+                        <p>Quantity Ordered: {order.quantity}</p>
+                        <p>Created At: {new Date(order.created_at).toLocaleString()}</p> {/* Format date */}
                         {/* Add more order details as necessary */}
                     </div>
                 ))
