@@ -10,7 +10,8 @@ import About from './components/AboutSection/AboutSection';
 import Posting from './components/PostingSection/PostingSection';
 import Auth from './components/LoginSection/Login';
 import CreateAccount from './components/AccountCreation/AccountCreation';
-import React, { useState } from 'react';
+import UserDashboard from './components/ UserDashboard/ UserDashboard';
+import { useState } from 'react';
 
 function App() {
     const [searchQuery, setSearchQuery] = useState<string>(''); 
@@ -29,6 +30,7 @@ function App() {
                 <Route path="/upload" element={<Posting />} />
                 <Route path="/login" element={<Auth setIsLoggedIn={setIsLoggedIn} isLoggedIn={isLoggedIn} />} />
                 <Route path="/create-account" element={<CreateAccount />} />
+                <Route path="user-profile" element={< UserDashboard/>}/>
             </Routes>
             <Footer />
         </Router>
