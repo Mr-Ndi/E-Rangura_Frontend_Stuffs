@@ -89,6 +89,9 @@ const AccountCreation: React.FC = () => {
                 {errorMessage && <div className="error-message">{errorMessage}</div>}
                 {successMessage && <div className="success-message">{successMessage}</div>}
                 
+                {/* Display completion message when account creation is complete */}
+                {isComplete && <div className="completion-message">Account creation completed successfully!</div>}
+                
                 <form onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label htmlFor="names">Full Name</label>
@@ -177,7 +180,7 @@ const AccountCreation: React.FC = () => {
                     </Link>
                 </form>
             </div>
-            <div className='signup-descipt'>
+            <div className='signup-description'>
                 <h2>Sign Up</h2>
                 <p>Hey just sign up in order to upload the product</p>
             </div>
