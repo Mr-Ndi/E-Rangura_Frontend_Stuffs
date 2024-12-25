@@ -52,9 +52,9 @@ const AvailableSection: React.FC<AvailableSectionProps> = ({ searchQuery }) => {
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const response = await api.singleProduct({ message: '' });
+                // Use ProductResponse to type the response
+                const response: ProductResponse = await api.singleProduct({ message: '' });
                 
-            
                 const transformedProducts: Product[] = response.products.map((item) => ({
                     id: item.product_id,
                     name: item.name,
@@ -69,11 +69,10 @@ const AvailableSection: React.FC<AvailableSectionProps> = ({ searchQuery }) => {
                 setError('Failed to fetch products.');
             } finally {
                 setLoading(false);
-                setIsComplete(true);
+                setIsComplete(true); // Set isComplete to true when loading is finished
             }
         };
-        
-    
+
         const intervalId = setInterval(() => {
             setProgress((oldProgress) => {
                 if (oldProgress >= 100) {
@@ -103,6 +102,10 @@ const AvailableSection: React.FC<AvailableSectionProps> = ({ searchQuery }) => {
         return <div>Error: {error}</div>;
     }
 
+    // Use isComplete to show a message after loading is complete
+    if (isComplete) {
+        console.log("Products loaded successfully!"); // You can replace this with any UI feedback if needed
+    }
 
     const filteredProducts = products.filter(product =>
         product.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -127,6 +130,11 @@ const AvailableSection: React.FC<AvailableSectionProps> = ({ searchQuery }) => {
                     </div>
                 ))}
             </div>
+
+            {/* Optional feedback for completion */}
+            {isComplete && !loading && !error && (
+                <div className="completion-message">All products have been loaded successfully!</div>
+            )}
         </div>
     );
 };

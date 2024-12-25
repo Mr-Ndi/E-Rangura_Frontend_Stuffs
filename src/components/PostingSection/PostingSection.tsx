@@ -129,9 +129,11 @@ const PostingSection = () => {
           </h1>
 
           {isSubmitting && (
-              <div>
+            <div>
                   <ProgressBar progress={progress} message={uploadMessage} />
                   {!isComplete && <div>Submitting your product...</div>}
+            {submissionSuccess && (
+                <div className="success-message">{uploadMessage}</div>)}
               </div>
           )}
 
